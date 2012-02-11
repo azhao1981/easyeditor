@@ -1,12 +1,18 @@
 #!/usr/bin/env ruby
-
+# -*- encoding : utf-8 -*-
 def require_r(path) require(File.expand_path(path.to_s, File.dirname(__FILE__))) end
 
 require_r "../lib/easyeditor"
 require "optparse"
 
 include Easyeditor
-
+options = {}
+option_parser = OptionParser.new do |opts|
+  opts.banner = 'Usage: ee -e [vim|vi..] path/file '
+  opts.on('-e vim|emacs', '--editor', 'Set editor') do |editor|
+    options[:editor] = editor
+  end
+end.parse!
 puts "Now open #{ARGV.first}"
-ee = EasyEditor.new(ARGV.first).open
+ee = EasyEditor.new(ARGV.first,(options[:editor] | "vim").open
 
