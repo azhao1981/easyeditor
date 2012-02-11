@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Easyeditor::VERSION
   s.authors     = ["azhao"]
   s.email       = ["azhao.1981@gmail.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "https://github.com/azhao1981/easyeditor"
+  s.summary     = %q{Tool for easy to open Project file.}
+  s.description = %q{ee path1/path2/filename will open which one that match *path1*/*path2*/*file.* }
 
   s.rubyforge_project = "easyeditor"
 
