@@ -18,7 +18,7 @@ module Easyeditor
 		def open
 			if @target_files.length > 1
 				ap @target_files	
-				puts "Which one to open:"
+				puts "Which file to open:[0-default]"
 				@index = $stdin.gets.to_i 
 			end
 			exec "#{@editor} #{@target_files[@index || 0]}"

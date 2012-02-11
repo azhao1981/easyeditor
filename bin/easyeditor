@@ -13,6 +13,6 @@ option_parser = OptionParser.new do |opts|
     options[:editor] = editor
   end
 end.parse!
-puts "Now open #{ARGV.first}"
-ee = EasyEditor.new(ARGV.first,(options[:editor] | "vim").open
+puts "Now open #{options[:editor]} #{ARGV.first}"
+ee = EasyEditor.new(ARGV.first,(options[:editor] || "vim")).open
 
