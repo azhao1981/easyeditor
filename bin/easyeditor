@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+def require_r(path) require(File.expand_path(path.to_s, File.dirname(__FILE__))) end
+
+require_r "../lib/easyeditor"
+require "optparse"
+
+include Easyeditor
+
+puts "Now open #{ARGV.first}"
+ee = EasyEditor.new(ARGV.first).open
+

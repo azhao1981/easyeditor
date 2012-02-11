@@ -5,8 +5,8 @@ require "easyeditor/version"
 Gem::Specification.new do |s|
   s.name        = "easyeditor"
   s.version     = Easyeditor::VERSION
-  s.authors     = ["="]
-  s.email       = ["="]
+  s.authors     = ["azhao"]
+  s.email       = ["azhao.1981@gmail.com"]
   s.homepage    = ""
   s.summary     = %q{TODO: Write a gem summary}
   s.description = %q{TODO: Write a gem description}
