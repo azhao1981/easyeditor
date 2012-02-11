@@ -1,0 +1,11 @@
+A tool for open file in a lazy way.
+
+Install:
+ gem install easyeditor
+ 
+Useage:
+ ee [-f vim(default)|emacs..] path/file 
+
+eg.
+ ee li/easyedit
+ That will open lib/easyeditor.rb 
