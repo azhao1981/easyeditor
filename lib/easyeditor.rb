@@ -7,50 +7,44 @@ require "ap"
 
 module Easyeditor
 	class EasyEditor
-		attr_accessor :match_files
+		attr_accessor :target_files
 		def initialize(path,editor="vim")
 			@editor =  editor
-			@match_files = []
-			path_a = path.split('/')
-			@file_name = path_a.delete_at(-1)
-			@match_str = path_a.join(".*/.*")
+			@target_files = []
+			parse_path(path)
 			match_paths
 			return self
-		end  
-		def open
-			@open_file = open_file
-			puts "Now Run #{@editor} #{@open_file}"
-			exec "#{@editor} #{@open_file}"
 		end
-		def open_file
-			if @match_files.length > 1
-				ap @match_files	
+		def open
+			if @target_files.length > 1
+				ap @target_files	
 				puts "Which one to open:"
 				@index = $stdin.gets.to_i 
 			end
-			select_file(@index)
+			exec "#{@editor} #{@target_files[@index || 0]}"
 		end
-		def select_file(index = 0)
-			@match_files[index || 0]	
+		def parse_path(path)
+			path_a = path.split('/')
+			@filename_str = path_a.delete_at(-1)
+			@path_str = path_a.join(".*/.*")
 		end
 		def match_paths
 			traverse_dir('.') do |file|
-				@match_files << file if is_match?(file)
+				@target_files << file if is_match?(file)
 			end
-			@match_files
 		end
-		def is_match?(file)
-			/#{@match_str}/.match(file) && /#{@file_name}.*/.match(File.basename(file))
+		def is_match?(path)
+			/#{@path_str}/.match(path) && /#{@filename_str}.*/.match(File.basename(path))
 		end
-		def traverse_dir(file_path)  
-			if File.directory? file_path  
-				Dir.foreach(file_path) do |file|  
+		def traverse_dir(dir_path)  
+			if File.directory? dir_path  
+				Dir.foreach(dir_path) do |file|  
 					if file!="." and file!=".."  
-						traverse_dir(file_path+"/"+file){|x| yield x}  
+						traverse_dir(dir_path+"/"+file){|x| yield x}  
 					end  
 				end  
 			else  
-				yield  file_path  
+				yield  dir_path  
 			end  
 		end
 	end
