@@ -9,10 +9,11 @@ include Easyeditor
 options = {}
 option_parser = OptionParser.new do |opts|
   opts.banner = 'Usage: ee -e [vim|vi..] path/file '
+  options[:editor] = ENV["EDITOR"] || "vim"
   opts.on('-e vim|emacs', '--editor', 'Set editor') do |editor|
     options[:editor] = editor
   end
 end.parse!
 puts "Now open #{options[:editor]} #{ARGV.first}"
-ee = EasyEditor.new(ARGV.first,(options[:editor] || "vim")).open
+ee = EasyEditor.new(ARGV.first,options[:editor]).open
 
