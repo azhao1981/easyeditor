@@ -9,3 +9,9 @@ Useage:
 eg.
  ee li/easyedit
  That will open lib/easyeditor.rb 
+
+ BUG:
+   TODO: sudo support ...Look don't work 
+   TODO: windows....I ready don't want to do this.....
+	 DONE: don't work on ruby -v<1.9.3
+   DONE: directory support, no directory show.

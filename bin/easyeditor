@@ -3,6 +3,7 @@
 def require_r(path) require(File.expand_path(path.to_s, File.dirname(__FILE__))) end
 
 require_r "../lib/easyeditor"
+require_r "../lib/easyeditor/version"
 require "optparse"
 
 include Easyeditor
@@ -12,6 +13,10 @@ option_parser = OptionParser.new do |opts|
   options[:editor] = ENV["EDITOR"] || "vim"
   opts.on('-e vim|emacs', '--editor', 'Set editor') do |editor|
     options[:editor] = editor
+  end
+  opts.on('-v','--version','Show version') do
+  	puts "ee|easyeditor -v= #{VERSION} "
+  	exit
   end
 end.parse!
 puts "Now open #{options[:editor]} #{ARGV.first}"

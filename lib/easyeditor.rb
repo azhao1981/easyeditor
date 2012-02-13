@@ -8,9 +8,11 @@ require "ap"
 module Easyeditor
 	class EasyEditor
 		attr_accessor :target_files
-		def initialize(path,editor="vim")
-			@editor =  editor
+		def initialize(path,options={})
+			@editor =  options[:editor]
 			@target_files = []
+			@dir = options[:directory]
+			@sudo_flag = options[:sudo]
 			parse_path(path)
 			match_paths
 			return self
@@ -21,7 +23,10 @@ module Easyeditor
 				puts "Which file to open:[0-default]"
 				@index = $stdin.gets.to_i 
 			end
-			exec "#{@editor} #{@target_files[@index || 0]}"
+			exec "#{sudo}#{@editor} #{@target_files[@index || 0]}"
+		end
+		def sudo
+			"sudo " if @sudo_flag
 		end
 		def parse_path(path)
 			path_a = path.split('/')
@@ -29,13 +34,14 @@ module Easyeditor
 			@path_str = path_a.join(".*/.*")
 		end
 		def match_paths
-			traverse_dir('.') do |file|
+			traverse_dir(@dir) do |file|
 				@target_files << file if is_match?(file)
 			end
 		end
 		def is_match?(path)
-			/#{@path_str}/.match(path) && /#{@filename_str}.*/.match(File.basename(path))
+			!File.directory?(path) && /#{@path_str}/.match(path) && /#{@filename_str}.*/.match(File.basename(path))
 		end
+		# 遍历文件夹
 		def traverse_dir(dir_path)  
 			if File.directory? dir_path  
 				Dir.foreach(dir_path) do |file|  
