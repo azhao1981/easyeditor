@@ -18,7 +18,15 @@ option_parser = OptionParser.new do |opts|
   	puts "ee|easyeditor -v= #{VERSION} "
   	exit
   end
+  options[:directory] = "."
+  opts.on('-d directory', '--directory', 'Set directory') do |directory|
+    options[:directory] = directory
+  end
+	options[:sudo] = false
+	opts.on('-s','--sudo',"Open with super user.") do 
+		options[:sudo]	= true
+	end
 end.parse!
 puts "Now open #{options[:editor]} #{ARGV.first}"
-ee = EasyEditor.new(ARGV.first,options[:editor]).open
+ee = EasyEditor.new(ARGV.first,options).open
 
